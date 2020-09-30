@@ -1,4 +1,40 @@
 <html>
+//Custom function to populate a modal. This could be expanded on to even add a destination parameter in order to use seperate modals (e.g. function videoModal(destination, source) and replace #myModal2 with the `destination` parameter).
+function videoModal(source) {
+  $("#myModal2 .modal-body").html($("video#player").clone());
+  //Add your second source:
+  $("#myModal2 video#player > source").attr("src", source);
+  $("#myModal2 .modal-body video#player").css("display", "block");
+}
+
+$(document).ready(function() {
+  //On init, save current loaded state of modal
+  let modalInit = $("#myModal2 .modal-body").html();
+
+  //On interaction with a control
+  $("body").on("click", "button#trailer", function() {
+    //Populate modal
+    videoModal("https://www.w3schools.com/tags/movie.mp4");
+  });
+
+  $("body").on("click", "button#movieNoads", function() {
+    //Populate modal
+    videoModal("https://www.w3schools.com/html/mov_bbb.mp4")
+  });
+
+  //Reset modal on close
+  $("#myModal2").on('hidden.bs.modal', function(e) {
+    $("#myModal2 .modal-body").html(modalInit);
+  });
+});
+
+video#player {
+  display: none;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
